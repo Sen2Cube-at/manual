@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Getting started | Sen2Cube.at Manual</title>
-  <meta name="description" content="3 Getting started | Sen2Cube.at Manual" />
+  <title>6 Advanced usage of the Sen2Cube.at system | Sen2Cube.at Manual</title>
+  <meta name="description" content="6 Advanced usage of the Sen2Cube.at system | Sen2Cube.at Manual" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Getting started | Sen2Cube.at Manual" />
+  <meta property="og:title" content="6 Advanced usage of the Sen2Cube.at system | Sen2Cube.at Manual" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="whisperingpixel/iq-manual" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Getting started | Sen2Cube.at Manual" />
+  <meta name="twitter:title" content="6 Advanced usage of the Sen2Cube.at system | Sen2Cube.at Manual" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="enrichment.html"/>
-<link rel="next" href="model.html"/>
+<link rel="prev" href="blocks.html"/>
+<link rel="next" href="examples.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -353,130 +353,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="start" class="section level1">
-<h1><span class="header-section-number">3</span> Getting started</h1>
-<p>Sen2Cube.at is a Web-application that can be accessed with a standard browser over the Internet. Installing additional software on your local computer is not necessary. The graphical frontend of our semantic querying interface is available online at <a href="https://demo.sen2cube.at/app">demo.sen2cube.at</a>. Please consult the contact section for options to get access to the demo version.</p>
-<div id="components" class="section level2">
-<h2><span class="header-section-number">3.1</span> Components</h2>
-<p>Inferring information from data using an expert system (information processing system) is typically achieved by combining a <strong>knowledgebase</strong> and a <strong>factbase</strong> that allows the <strong>inference engine</strong> to process large volumes of data automatically. The knowledgebase contains general or specific knowledge of the world, expressed in rulesets and encoded in models. Thus, the knowledgebase is augmented incrementally through using the system. The factbase contains the raw image data as well as the semantically enriched data.</p>
-<p>A semantic query in the Sen2Cube.at system has three main components:</p>
-<ul>
-<li><strong>Model</strong>: This is the part of the knowledgebase that is used to infer new information. It is a set of rules in which the semantic concepts are defined, and the desired results are formulated.</li>
-<li><strong>area-of-interest</strong>: This defines the spatial extent (subset) of the factbase that will be input to the inference engine.</li>
-<li><strong>Time Interval</strong>: This defines the temporal extent (subset) of the factbase that will be input to the inference engine.</li>
-</ul>
+<div id="advanced-usage-of-the-sen2cube.at-system" class="section level1">
+<h1><span class="header-section-number">6</span> Advanced usage of the Sen2Cube.at system</h1>
+<div id="factbases" class="section level2">
+<h2><span class="header-section-number">6.1</span> Factbases</h2>
+<div id="metadata-information-about-factbases" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Metadata information about factbases</h3>
+<p>Every factbase is provided with a set of metadata that may be useful for the semantic querying process. The factbase metadata can be obtained by clicking on the round (i) symbol of the factbase entries.</p>
+<div class="figure">
+<img src="img/factbases.png" style="width:100.0%" alt="" />
+<p class="caption">The round (i) symbol opens the factbase settings.</p>
+</div>
+<div class="figure">
+<img src="img/factbase-editor.png" style="width:100.0%" alt="" />
+<p class="caption">Every factbase is provided with a set of metadata..</p>
+</div>
 <div class="rmdnote">
 <p>
-A semantic query is the execution of a model from the knowledgebase against a selected spatio-temporal subset of the factbase through which new information is inferred.
+Even if the buttons are visible, most users don’t have permission to change the settings and information of the factbases. Trying to change them will result in an error. If you have a request for changings of the settings, please contact <a href="mailto:info@sen2cube.at" class="email">info@sen2cube.at</a>
 </p>
 </div>
-<p>Additionally, it is possible to execute a model in <strong>preview</strong> mode. This is a setting of the <strong>inference engine</strong> options and available for all types of models. A query in preview mode generally will be executed faster as the spatial resolution is reduced by a factor of 10. See the section below for more information.</p>
 </div>
-<div id="workflow" class="section level2">
-<h2><span class="header-section-number">3.2</span> Workflow</h2>
-<p>In the Sen2Cube.at Web-application, each component corresponds to one pane on the left side of the main page.</p>
-<center>
-<img src="img/main.png" style="width:100.0%" />
-</center>
-<div id="selecting-the-model" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Selecting the model</h3>
-<p>Clicking <code>Browse all models</code> shows the models, which are already within the knowledgebase and can be used directly. At the begin of the list, you can click the <code>+</code> icon to create a new model. For doing this, it may be useful, read the documentation on model construction (<a href="model.html#model">4</a>).</p>
-<p>Deleting a model is only possible if it was not used in an inference, i.e.., a semantic query. As information processing system, Sen2Cube.at does not allow to maintain inferences without associated models. Thus, deleting all associated inferences is required prior to deleting a model.</p>
+<div id="switching-between-factbases" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Switching between factbases</h3>
+<p>The Sen2Cube.at system allows switching between different factbases. This can be done by clicking on the target factbase at the bottom of the screen.</p>
+<p><img src="img/factbases.png" style="width:100.0%" /></p>
+<p>However, switching a factbase may come with side effects that need to be considered.</p>
+<div class="rmdnote">
+<p>
+The semantic enrichment produces similar output (colour names), and therefore a lot of models are transferable between the factbase. This means they can be used in more than one factbase. However, suppose there are sensor-specific elements, such as reflectance values. In that case, the model is implicitly tied to the specific sensor. In this case, the model is not transferable anymore, except the factbase was set up identically.
+</p>
 </div>
-<div id="selecting-the-area-of-interest" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Selecting the area-of-interest</h3>
-<p>The area-of-interest can be drawn within the country borders of Austria, in three different ways:</p>
-<ul>
-<li>As a <strong>point</strong> or a <strong>set of points</strong>.</li>
-<li>As a <strong>line</strong> or a <strong>set of lines</strong>.</li>
-<li>As a <strong>polygon</strong> or a <strong>set of polygons</strong>.</li>
-</ul>
-<center>
-<img src="img/point.png" style="width:32.0%" />   <img src="img/line.png" style="width:32.0%" />   <img src="img/poly.png" style="width:32.0%" />
-</center>
-<p>Valid areas-of-interest can also be non-rectangular shaped or non-continuous.</p>
-<center>
-<img src="img/poly.png" style="width:32.0%" />   <img src="img/poly2.png" style="width:32.0%" />   <img src="img/poly3.png" style="width:32.0%" />
-</center>
-<p>The drawn shapes are internally translated into <a href="https://geojson.org/">GeoJSON format</a>. Alternative to manually drawing the areas-of-interest on the map, it is also possible to use already defined representations of common areas-of-interest, such as agricultural fields, municipalities etc. A valid GeoJSON file can be directly uploaded or linked through standard WFS service that allows specifyig GeoJSON as output format such as this one:</p>
-<pre><code>https://demo.sen2cube.at/ows/000/?service=WFS&amp;version=1.1.0&amp;request=GetFeature&amp;outputFormat=application/json&amp;srsname=EPSG:4326&amp;typename=inspire_feldstuecke_2019&amp;Filter=&lt;Filter&gt;&lt;PropertyIsEqualTo&gt;&lt;PropertyName&gt;FS_KENNUNG&lt;/PropertyName&gt;&lt;Literal&gt;73898247&lt;/Literal&gt;&lt;/PropertyIsEqualTo&gt;&lt;/Filter&gt;</code></pre>
-<p>Here is an example of how areas-of-interest can be selected</p>
-<center>
-<div class="figure">
-<img src="img/aoi_example.gif" alt="" />
-<p class="caption">Workflow of selecting areas-of-interest using drawing functionality and OGC Web Feature Services</p>
-</div>
-</center>
-</div>
-<div id="selecting-the-time-interval" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> Selecting the time interval</h3>
-<p>The time interval is defined by a start date and an end date. The interval is <em>closed</em> at both sides, meaning that both the specified start date and end date are included. Currently, the Austrian semantic data and information cube contains data since the beginning of the operational phase of Sentinel-2 in Summer 2015 and is constantly updated with the most recent data.</p>
-</div>
-<div id="executing-the-semantic-query-and-inferring-new-information" class="section level3">
-<h3><span class="header-section-number">3.2.4</span> Executing the semantic query and inferring new information</h3>
-<p>Once the model, the area-of-interest and the time interval are set, the semantic query can be executed by clicking <code>Start inference</code>. Depending on the size and complexity of the query, execution might take some time.</p>
-<p>Every semantic query, i.e., inference, will be created internally and executed by a worker as soon as resources are available. If the system is already busy, it may therefore take some time until the inference can be started. Please note that the inferences will <strong>stop automatically after a specified time</strong>. This is usually 10 minutes for personalised access but are lower for demo-accounts. Please contact <a href="mailto:info@sen2cube.at" class="email">info@sen2cube.at</a> if you want to process larger data volumes.</p>
-<p>It is possible to stop an inference any time by clicking <code>Abort inference</code>. It may take some seconds until you receive the final notification that the inference was aborted.</p>
-</div>
-<div id="preview-mode" class="section level3">
-<h3><span class="header-section-number">3.2.5</span> Preview-mode</h3>
-<p>The <strong>preview-mode</strong> can be used for prototypically and interactively develop and test semantic models. The spatial resolution will be reduced by a factor of 10, which usually reduces the processing time significantly. In the case of Sentinel-2 the processing and output pixel size will therefore not be 10x10, but 100x100 meters. Thus, keep in mind the side-effects that this setting may have.</p>
-<p>The following example illustrates the effect of the preview mode. They show the execution of the same semantic model of the same AOI and the same time interval, while the first picture shows the result of the query not executed in preview-mode and the second picture shows the result of the query executed in preview-mode:</p>
-<div class="figure">
-<img src="img/preview-no.png" style="width:100.0%" alt="" />
-<p class="caption">Query executed not in preview mode</p>
-</div>
-<div class="figure">
-<img src="img/preview-yes.png" style="width:100.0%" alt="" />
-<p class="caption">Query executed in preview-mode</p>
-</div>
-<p>It is possible to see the effects of the coarser spatial resolutions, not only less detailed outlines and crossings, but also some entities are completely hidden, e.g. the infrastructure that guides the river water and the sediments to deeper parts of the lake.</p>
-<p>In the result it will be indicated whether a query was executed in preview-mode or not. You can identify that a semantic query was executed in preview mode either by the “Preview”-banner at the top of the page and the indicator in the query settings, which also show the resampling factor (here 10x).</p>
-<div class="figure">
-<img src="img/preview-ui.png" style="width:100.0%" alt="" />
-<p class="caption">The user interface indicates whether a semantic query was executed in preview mode</p>
-</div>
-</div>
-<div id="viewing-and-downloading-the-results" class="section level3">
-<h3><span class="header-section-number">3.2.6</span> Viewing and downloading the results</h3>
-<p>When successfully processed, results can be viewed by clicking the <code>View results</code> button that will appear. Results with a spatial dimension will be visualized on a map, and results with only a temporal dimension will be visualized as a line graph if the data values are numerical. Results of semantic content-based image retrieval will be visualized in calendar. Most other types of data will be visualized as a plain list. Besides the visualization, there is also the option to download the results as either a <a href="https://en.wikipedia.org/wiki/GeoTIFF#:~:text=GeoTIFF%20is%20a%20public%20domain,spatial%20reference%20for%20the%20file.">GeoTIFF</a> (for spatial data) or <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> (for non-spatial data) file. You can also choose to download a result as a <a href="https://docs.qgis.org/3.10/en/docs/user_manual/introduction/project_files.html">QGIS Project File</a> or directly input the results as OGC WMS.</p>
-<center>
-<img src="img/result.png" style="width:100.0%" />
-</center>
 <div class="rmdwarning">
 <p>
-We recommend that you download important results as they will be deleted regularly. However, we will keep the inference settings, which allows you to re-process them at any time.
+When you change the factbase, your query settings will be lost/reset. The reason is that settings such as the area-of-interest or the time period depend on the selected factbase.
 </p>
 </div>
 </div>
-<div id="error-handling" class="section level3">
-<h3><span class="header-section-number">3.2.7</span> Error handling</h3>
-<p>In the case the query could <em>not</em> be processed successfully, an error message describing the problem will appear instead.</p>
-<p>Usually, the error message contains an error code, which can be used to get more information about what the error itself means as well as what are possible mitigation strategies. More information about errors is provided in a dedicated section about the error codes (<a href="error-codes.html#error-codes">8</a>).</p>
 </div>
-<div id="exampleworkflow" class="section level3">
-<h3><span class="header-section-number">3.2.8</span> Examples</h3>
-<p>The entire workflow of using a prepared model to conduct a semantic query can be seen in the video below. A simple model to count water observations is used to infer information on the water dynamics of the Danube river in the protected areas south of Vienna.</p>
-<center>
+<div id="knowledgebase" class="section level2">
+<h2><span class="header-section-number">6.2</span> Knowledgebase</h2>
+<div id="metadata-information-about-models" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Metadata information about models</h3>
+<p>Every model is provided with metadata, which can help develop and use a model in a semantic query. The model editor allows switching to the metadata view using the button on the top right.</p>
+<p><img src="img/model-editor-metadata-button.png" style="width:100.0%" alt="The model editor allows to switch to the metadata view." />
+<img src="img/model-editor-metadata.png" style="width:100.0%" /></p>
+<p>The metadata view allows entering a detailed description of the model with unlimited text length. The layout provides more information about the currently selected <strong>factbase</strong> and can be helpful during the model development phase.</p>
+</div>
+<div id="marking-models-as-favourite" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Marking models as favourite</h3>
+<p>It is possible to select and mark one or more models that as a favourite. They will be shown first in the knowledgebase. The symbol is the typical bookmark, dark (filled) when the model is selected as favourite and bright (not filled) when they are not. The model editor allows to select and de-select a model as a favourite by clicking on the symbol.</p>
+<p><img src="img/favourite-model-list.png" style="width:100.0%" alt="Models that are marked as a favourite will be shown first in the knowledgebase." />
+<img src="img/favourite-model-editor.png" style="width:100.0%" alt="Selecting and de-selecting a model as a favourite can be done in the model editor by clicking on the bookmark symbol." /></p>
+<div class="rmdnote">
+<p>
+Marking a model as a favourite affects only the presentation in the knowledgebase; it does not affect the performance etc.
+</p>
+</div>
+</div>
+</div>
+<div id="inferences-and-semantic-queries" class="section level2">
+<h2><span class="header-section-number">6.3</span> Inferences and semantic queries</h2>
+<div id="marking-inferences-as-favourite" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Marking inferences as favourite</h3>
+<p>Similar to models, it is also possible to mark inferences as a favourite. They will be then sorted so that they appear first in the interfaces. The symbol is the typical bookmark, dark (filled) when the inference is selected as favourite and bright (not filled) when they are not. Inferences can be easily selected and de-selected as a favourite within the list of inferences by clicking on the bookmark symbol.</p>
 <div class="figure">
-<img src="img/model-creation.gif" style="width:100.0%" alt="" />
-<p class="caption">An example of a Sen2Cube.at inference workflow</p>
-</div>
-</center>
-<center>
-<div class="figure">
-<img src="img/wms_example.gif" style="width:100.0%" alt="" />
-<p class="caption">An example of a Sen2Cube.at inference workflow including exporting the results as OGC Web Map Service</p>
-</div>
-</center>
+<img src="img/favourite-inferences.png" style="width:100.0%" alt="" />
+<p class="caption">Inferences can be marked as a favourite. They will be shown at the top of the list of inferences.</p>
 </div>
 </div>
-<div id="other-access-options" class="section level2">
-<h2><span class="header-section-number">3.3</span> Other access options</h2>
-<p>If you have experience with other Earth observation data cubes you might be familiar with Jupyter Notebooks. Of course they are available in Sen2Cube.at as well: <a href="https://demo.sen2cube.at/notebook/sen2cube">https://demo.sen2cube.at/notebook/sen2cube</a>.</p>
-<p>… but in the semantic querying language you don’t have to do programming at all!</p>
+<div id="cloning-inference-settings" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Cloning inference settings</h3>
+<p>Sometimes it is necessary to re-execute a semantic query with slightly different settings. In these cases, it is not required to draw the area-of-interest etc. again. Instead, it is possible to <em>clone</em> the inference settings in a new inference. While the <em>repeat</em> button simply re-executes the query, the <em>clone</em> button clones the inference settings on the main page.</p>
+<img src="img/clone-inference-settings.png" title="fig:" style="width:100.0%" alt="Cloning inference settings avoids re-uploading of area-of-interest and resetting the start and end times." />
+<div class="rmdwarning">
+<p>
+When you clone the inference settings, existing settings will be overwritten!
+</p>
+</div>
 
-<hr />
+</div>
 </div>
 </div>
             </section>
@@ -484,8 +440,8 @@ We recommend that you download important results as they will be deleted regular
           </div>
         </div>
       </div>
-<a href="enrichment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="blocks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -516,7 +472,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/whisperingpixel/iq-manual/edit/master/getting_started.Rmd",
+"link": "https://github.com/whisperingpixel/iq-manual/edit/master/advanced_usage.Rmd",
 "text": "Edit"
 },
 "history": {
