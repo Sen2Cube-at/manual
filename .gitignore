@@ -2,7 +2,12 @@
 .Rhistory
 .RData
 .Ruserdata
+.local
+.config
+R
+docs
 _publish.R
 _book
 _bookdown_files
 rsconnect
+.DS_Store

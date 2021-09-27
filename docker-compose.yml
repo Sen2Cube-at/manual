@@ -2,10 +2,13 @@ version: '3'
 
 services:
   rstudio:
-    image: rocker/rstudio
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - ./:/home/rstudio
+      - ./:/home/rstudio/iq-manual
     environment:
-      - PASSWORD=openthegate
+      - PASSWORD=openthegate      
+      - DISABLE_AUTH=true
     ports:
       - 8787:8787

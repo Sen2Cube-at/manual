@@ -1,0 +1,598 @@
+# API {#api}
+This chapter is dedicated to describe the web API to interact with the Sen2Cube.AT
+backend.
+
+The API follows the [JSON:API specification](https://jsonapi.org/). This document will only describe the basics with
+examples. For full documentation see [JSON:API specification documentation](https://jsonapi.org/format/). The
+implementation used in the Sen2Cube.AT backend is [flask-rest-jsonapi](https://flask-rest-jsonapi.readthedocs.io/).
+Especially the secion on [filtering](https://flask-rest-jsonapi.readthedocs.io/en/latest/filtering.html) is important 
+as this is to a certain degree implementation specific and not completely described within the standard.
+
+
+## Authentication {#api-auth}
+All API endpoints need authentication with OAuth2. The OAuth2 server is https://auth.sen2cube.at. We recommend using an
+OAuth client library provided for your language environment / framework and not handling the authentication by yourself.
+The following snippets only illustrate the steps needed for authentication from the commandline. They assume a
+Linux / Bash environment and use [`jq`](https://stedolan.github.io/jq/) to extract data from JSON.
+
+**NOTE** To keep your password out of the command history create a file s2c_pwd.txt containing your password without
+trailing line break and store it in a save location. **Don't forget to delete the file when you're done!**
+
+For convenience we create a variable with our username.
+```bash
+export S2C_UN="user.name"
+```
+
+### Requesting a token
+
+To request a session token we send our credentials to the OAuth token endpoint and store the result in a file called
+`.token.json`.
+
+**NOTE** Make sure to delete this file when you're done.
+
+```bash
+curl -X POST "https://auth.sen2cube.at/realms/sen2cube-at/protocol/openid-connect/token" \
+ -H "Content-Type: application/x-www-form-urlencoded" \
+ -d "username=${S2C_UN}" \
+ -d "password=$(cat ./s2c_pwd.txt)" \
+ -d 'grant_type=password' \
+ -d "client_id=iq-web-client" > .token.json
+```
+
+This returns a JSON structure containing the token and a refresh token `cat .token.json`:
+
+```json
+{
+  "access_token": "<token string>",
+  "expires_in": 300,
+  "refresh_expires_in": 1800,
+  "refresh_token": "<refresh token string>",
+  "token_type": "bearer",
+  "not-before-policy": 1597324965,
+  "session_state": "86c402ad-aff5-4e95-aa0b-f04fdbad7f09",
+  "scope": "email profile"
+}
+```
+
+We can extract the token and refresh token with `jq` and save them into files for convenience.
+
+**NOTE** Make sure to delete those files when you're done.
+
+```bash
+cat .token.json | jq -r '.access_token' > .access_token.txt
+cat .token.json | jq -r '.refresh_token' > .refresh_token.txt
+```
+
+### Using the token / getting user info
+
+The token must be added as `Authorization` header to the http requests. For example to get the user info of the
+current user:
+
+```bash
+curl -X GET \
+  "https://auth.sen2cube.at/realms/sen2cube-at/protocol/openid-connect/userinfo" \
+  -H "Authorization: Bearer $(cat .access_token.txt)"
+```
+
+This returns a JSON of the following format:
+```json
+{
+  "sub": "<SNIP>",
+  "email_verified": true,
+  "name": "User Name",
+  "preferred_username": "user.name",
+  "given_name": "User",
+  "family_name": "Name",
+  "email": "user.name@mail.invalid"
+}
+```
+
+The `preferred_username` field should match the username used for requesting the token.
+
+### Refreshing tokens
+
+By default tokens are valid for 5 minutes (300s). To refresh the session without using
+username / password the refresh token can be used. The request is simliar to the initial
+token request but with `grant_type` set to `refresh_token` and the refresh token instead
+of username and password. Refresh tokens are valid for 30 minutes (1800s).
+
+```bash
+curl -X POST "https://auth.sen2cube.at/realms/sen2cube-at/protocol/openid-connect/token" \
+ -H "Content-Type: application/x-www-form-urlencoded" \
+ -d "grant_type=refresh_token" \
+ -d "refresh_token=$(cat .refresh_token.txt)" \
+ -d "client_id=iq-web-client" > .token.json
+```
+
+This returns a new set of tokens that can be extracted as shown above.
+
+```bash
+cat .token.json | jq -r '.access_token' > .access_token.txt
+cat .token.json | jq -r '.refresh_token' > .refresh_token.txt
+```
+
+**NOTE** Most client libraries should provide a mechanism for automatic token refresh. This should be used whenever
+possible.
+
+## JSON:API Basics {#api-basics}
+
+This section shows very basic examples of how to fetch and create entities. For more complex examples please
+check [JSON:API specification](https://jsonapi.org/) and [flask-rest-jsonapi](https://flask-rest-jsonapi.readthedocs.io/)
+documentation.
+
+### Fetching entities
+Every resource has a unique URI. A resource is fetched by using an HTTP GET request. 
+
+**Note** Every request against https://api.sen2cube.at needs the `Authorization: Bearer <valid access token>` header
+to be set or it will fail with a [401 Unauthorized](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401) error.
+
+Get single entity with known ID (example ID 10424):
+
+```bash
+curl -X GET "https://api.sen2cube.at/v1/inference/10424" \
+  -H "Authorization: Bearer $(cat .access_token.txt)"
+```
+
+Get multiple entities using paging / filters etc. This example fetches all inferences in pages of size 1:
+```bash
+curl -X GET "https://api.sen2cube.at/v1/inference?page[size]=1" \
+  -H "Authorization: Bearer $(cat .access_token.txt)"
+```
+
+This returns a JSON simliar to this (snipped the inference data for brevity). See below for data structure.
+```json
+{
+  "data": [ // array containing the fetched entities.
+            // in case of getting a single entity via ID data is not an array
+            // but just the object.
+    {
+            // snipped inference data for brevity (see below for format)
+    }
+  ],
+  "links": {
+    "self": "http://api.sen2cube.at/v1/inference?page%5Bsize%5D=1&filter%5Bowner%5D=user.name",
+    "first": "http://api.sen2cube.at/v1/inference?page%5Bsize%5D=1&filter%5Bowner%5D=user.name",
+    "last": "http://api.sen2cube.at/v1/inference?page%5Bsize%5D=1&filter%5Bowner%5D=user.name&page%5Bnumber%5D=23",
+    "next": "http://api.sen2cube.at/v1/inference?page%5Bsize%5D=1&filter%5Bowner%5D=user.name&page%5Bnumber%5D=2"
+  },
+  "meta": {
+    "count": 23
+  },
+  "jsonapi": {
+    "version": "1.0"
+  }
+}
+
+```
+
+All results follow this structure. The `links` can be used to step through pages, the `meta/count` field shows the
+total number of results matching the query and the `data` array contains the requested data.
+
+### Creating entities
+
+To create an entity - currently only inferences and models can be created via API - the entity has to be send via `POST`
+request to the corresponding endpoint. This will example will create an inference that will be executed by the backend. 
+We create a file `inference.json` and `POST` it to th endpoint `https://api.sen2cube.at/v1/inference`
+
+Example `inference.json`:
+
+```json
+{
+  "data": {
+    "attributes": {
+      "owner": "user.name", // username of current user.
+                            // **NOTE** Because of a known BUG at the moment
+                            //        this will not be autofilled and needs
+                            //        to be the correct preferred username!
+      "comment": "Inference started via CURL",
+      // temporal range. Both need to be ISO timestamps and SHOULD be UTC
+      "temp_range_start": "2021-03-01T00:00:00.000Z",
+      "temp_range_end": "2021-07-31T23:59:59.999Z",
+      // area of interet. Needs to be a GeoJSON provided as STRING!
+      "area_of_interest": "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"properties\":{\"name\":\"Area-of-interest 00\"},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[14.07188,47.768556],[14.07188,47.865185],[14.237462,47.865185],[14.237462,47.768556],[14.07188,47.768556]]]}}]}",
+      // downsample factbase resolution by this factor. Can be used
+      // for quick preview. This resamples on data load, not on
+      // result generation!
+      // 1 = factbase resolution
+      "output_scale_factor": 10,
+      "favourite": false
+    },
+    "relationships": {
+      // ID of the knowledgebase model to execute
+      "knowledgebase": {
+        "data": {
+          "type": "knowledgebase",
+          "id": "218"
+        }
+      },
+      // ID of factbase to execute against.
+      "factbase": {
+        "data": {
+          "type": "factbase",
+          "id": "1"
+        }
+      }
+    },
+    "type": "inference" // For inference endpoint always 'inference'
+  }
+}
+```
+
+```bash
+curl -X POST "https://api.sen2cube.at/v1/inference" \
+  -H "Authorization: Bearer $(cat .access_token.txt)" \
+  -H "Content-Type: application/json" \
+  -d "$(cat ./inference.json)"
+```
+
+On successful creation the server will return a [`201 CREATED`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+with the following body (containing all optional fields). The field `id` contains the object ID.
+
+```json
+{
+  "data": {
+    "type": "inference",
+    "attributes": {
+      // Object attributes are snipped for brewety
+    },
+    "id": 10424,
+    "relationships": {
+      "factbase": {
+        "links": {
+          "self": "/v1/inference/10424/relationships/factbase",
+          "related": "/v1/inference/10424/factbase"
+        }
+      },
+      "knowledgebase": {
+        "links": {
+          "self": "/v1/inference/10424/relationships/knowledgebase",
+          "related": "/v1/inference/10424/knowledgebase"
+        }
+      }
+    },
+    "links": {
+      "self": "/v1/inference/10424"
+    }
+  },
+  "links": {
+    "self": "/v1/inference/10424"
+  },
+  "jsonapi": {
+    "version": "1.0"
+  }
+}
+
+```
+
+## Endpoints and object structures {#api-endpoints}
+
+### Inference
+
+Inferences are the central object for interacting with the backend. They schedule models from the knowledgebase to be 
+executed against a factbase.
+
+Endpoint: `/v1/inference`
+
+The basic flow for running an inference is
+
+1. Select a model from the knowledgebase (see below)
+1. create a GeoJSON with the area of interest
+1. pick a temporal range
+1. create JSON and POST to inference endpoint
+1. Then wait for the backend to schedule and execute the inference (need polling at the moment)
+1. retrieve results when status changes to SUCCESS
+
+
+**Datamodel**
+
+```json
+{
+  "data": {
+    "type": "inference",          // always "inference"
+    "attributes": {
+      "owner": "user.name", // owner
+      "comment": " ",             // description or comment on inference
+
+      "status": "SUCCEEDED",      // status ABORTED|CREATED|FAILED|SCHEDULED|STARTED|SUCCEEDED
+      "status_message": "The inference was successfully processed",
+
+      "timestamp_created": "2021-09-24T11:41:30.498496+00:00",   // timestamp of creation
+      "timestamp_started": "2021-09-24T12:13:17.527622+00:00",   // timestamp when processing started
+      "timestamp_finished": "2021-09-24T12:15:48.661768+00:00",  // timestamp when processing finished
+
+      "factbase_id": 1,           // id of used factbase (see relationships for link)
+      "knowledgebase_id": 218,    // id of used model in knowledgebase (see relationships for link)
+
+      // area of interest to run model on. GeoJSON as STRING
+      "area_of_interest": "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"properties\":{\"name\":\"Area-of-interest 00\"},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[14.07188,47.768556],[14.07188,47.865185],[14.237462,47.865185],[14.237462,47.768556],[14.07188,47.768556]]]}}]}",
+
+      // temporal range to query data from
+      "temp_range_start": "2021-03-01T00:00:00+00:00",
+      "temp_range_end": "2021-07-31T23:59:59.999000+00:00",
+
+      // scalingfactor for resolution. 1 = original factbase resolution.
+      // rescaling happens on data load - used for creating quick previews
+      "output_scale_factor": 10,
+
+      // array of outputs as JSON string (see below for more information)
+      "output": "[{\"name\": \"Cloud_free_composite\", \"inference_id\": 10424, \"value_type\": \"numerical\", \"value_range\": [354.0, 4463.0], \"dims\": [\"band\", \"y\", \"x\"], \"file_type\": \"geotiff\", \"vis_type\": \"composite\", \"data\": \"/output/sen2cube/user.name/Cloud_free_composite_id10424_3035.tiff\", \"bytes\": 106111, \"band_value_ranges\": [[354.0, 4463.0], [602.0, 3601.0], [764.0, 3229.0]]}]",
+      "qgis_project_location": "/output/sen2cube/user.name/qgis-project-id10424.zip",
+      
+      "favourite": false,         // mark inference as favourite (for UI)
+      // internal
+     "status_timestamp": null,
+      "status_progress": null,
+    },
+    "relationships": {
+      "knowledgebase": {
+        "links": {
+          "self": "/v1/inference/10424/relationships/knowledgebase",
+          "related": "/v1/inference/10424/knowledgebase"
+        }
+      },
+      "factbase": {
+        "links": {
+          "self": "/v1/inference/10424/relationships/factbase",
+          "related": "/v1/inference/10424/factbase"
+        }
+      }
+    },
+    "id": 10424,
+    "links": {
+      "self": "/v1/inference/10424"
+    }
+  },
+  "links": {
+    "self": "/v1/inference/10424"
+  },
+  "jsonapi": {
+    "version": "1.0"
+  }
+}
+```
+
+The `output` field contains a JSON string with an array of all results contained within the inference. The results are
+defined in the knowledgebase model and vary from model to model. The basic structure is:
+
+```json
+[
+  // example of GeoTIFF result
+  {
+    "name": "Cloud_free_composite", // name of the result
+    "inference_id": 10424,          // ID of the inference
+    "value_type": "numerical",      // datatype (numerical|categorical)
+    "value_range": [                // min and max value over all bands
+      354,
+      4463
+    ],
+    "dims": [                       // dimensions 
+      "band",
+      "y",
+      "x"
+    ],
+    "file_type": "geotiff",         // geotiff|csv 
+    "vis_type": "composite",        // for UI purposes
+    // path to download. This needs to be prefixed with URI from the factbase (see below)
+    // that this inference was executed agains. In this case https://demo.sen2cube.at.
+    "data": "/output/sen2cube/user.name/Cloud_free_composite_id10424_3035.tiff",
+    "bytes": 106111,                // filesize
+    "band_value_ranges": [          // min/max values per band
+      [
+        354,
+        4463
+      ],
+      [
+        602,
+        3601
+      ],
+      [
+        764,
+        3229
+      ]
+    ]
+  },
+  // example of a simple timeseries on one polygon
+  // resulting CSV has two columns: time and cloud_percentage_aoi
+  // containing the value
+  {
+    "name": "cloud_percentage_aoi",
+    "inference_id": 10424,
+    "value_type": "numerical",
+    "value_range": [
+      0,
+      100
+    ],
+    "dims": [ 
+      "time"
+    ],
+    "file_type": "csv",
+    "vis_type": "single_line_graph",
+    "data": "/output/sen2cube/user.name/cloud_percentage_aoi_id10424.csv",
+    "bytes": 1053,
+    "x-axis": "time",
+    "y-axis": "cloud_percentage_aoi"
+  },
+  // example with multiple polygons
+  // resulting CSV contains 3 columns.
+  // space contrains the polygonname (set by property 'name' in GeoJSON)
+  // time and value.
+  {
+    "name": "pre_event_mowing_cloudless",
+    "inference_id": 10424,
+    "value_type": "numerical",
+    "value_range": [
+      0,
+      100
+    ],
+    "dims": [
+      "space",
+      "time"
+    ],
+    "file_type": "csv",
+    "vis_type": "multi_line_graph",
+    "data": "/output/sen2cube/user.name/pre_event_mowing_cloudless_id10424.csv",
+    "bytes": 21891,
+    "x-axis": "time",
+    "y-axis": "pre_event_mowing_cloudless",
+    "lines": "space"
+  },  
+]
+```
+
+**Downloading result**
+To download a result the URI in `data` has to be prefixed with the `uri` of the factbase it was executed against.
+
+```bash
+curl -X GET \
+  "https://demo.sen2cube.at/output/sen2cube/user.name/Cloud_free_composite_id10424_3035.tiff" \
+  -H "Authorization: Bearer $(cat .access_token.txt)" \
+  --output Cloud_free_composite_id10424_3035.tiff
+```
+
+### Factbase
+
+Factbases contain the image data and semantic information.
+
+Endpoint: `/v1/factbase`
+
+**Datamodel**
+
+```json
+{
+  "data": {
+    "type": "factbase",           // always "factbase"
+    "attributes": {
+      "title": "Austria",         // title
+      "description": "Sen2Cube.at data cube for Austria",
+      "owner": "Martin Sudmanns", // owner
+      "project": "sen2cube",      // project (internal)
+      "owner_email": "info@sen2cube.at", // contact email
+      "uri": "https://demo.sen2cube.at", // URI of the factbase - prefix infrence output location with this URI to download data
+      "status": "OK",             // status of factbase. OK|BUSY|MAINTENANCE
+
+      "sensor": "sentinel-2",     // name of sensor
+      "dateStart": "2015-07-04",  // start of temporal extent
+      "dateEnd": "2021-08-10",    // end of temporal extent
+
+      // SRS of factbase
+      "srs": "PROJCS[\"ETRS89 / LAEA Europe\",GEOGCS[\"ETRS89\",DATUM[\"European_Terrestrial_Reference_System_1989\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY[\"EPSG\",\"6258\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4258\"]],PROJECTION[\"Lambert_Azimuthal_Equal_Area\"],PARAMETER[\"latitude_of_center\",52],PARAMETER[\"longitude_of_center\",10],PARAMETER[\"false_easting\",4321000],PARAMETER[\"false_northing\",3210000],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AUTHORITY[\"EPSG\",\"3035\"]]",
+      "resolution": [             // native resolution (x/y) in m
+        10,
+        10
+      ],
+      "layout": {                 // description of layers available in this factbase
+        "reflectance": [],        // snipped for brevity
+        "appearance": [],
+        "topography": [],
+        "atmosphere": [],
+        "artifacts": []
+      },
+      "footprint_bbox": {         //GeoJSON polygon of BBOX
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              9.63365349495478,
+              46.24702482514619
+            ],
+            [
+              9.356662993407214,
+              48.882262709970156
+            ],
+            [
+              17.203411418707493,
+              48.99948448145476
+            ],
+            [
+              17.094709857897673,
+              46.35394653581438
+            ],
+            [
+              9.63365349495478,
+              46.24702482514619
+            ]
+          ]
+        ]
+      },
+      "footprint":  {             // snipped GeoJSON feature collection representing the area(s) of data
+      },
+
+      "basemaps": [ //array of available / recommended basemaps for the factbase (for UIs)
+        {
+          "name": "cartocdn",
+          "label": "Carto Light",
+          "label_colour": "dark",
+          "url": "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+          "thumbnail": "", //string with base64 encoded thumbnail image - this will be directly loaded in <img>
+          "attribution": "© <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener\">OpenStreetMap</a> contributors, © <a href=\"https://www.maptiler.com/copyright/\" target=\"_blank\" rel=\"noopener\">MapTiler</a>, © <a href=\"https://carto.com/attributions\">light_all</a>"
+        }
+      ],
+
+      // internal use
+      "busy_worker_ping": "2021-09-25T15:51:32.359023+00:00",
+      "free_worker_ping": "2021-09-27T13:44:21.625625+00:00",
+      "location": null,
+      "preview_factor": 10
+    },
+    "id": 1,
+    "relationships": {
+      "inferences_fb": {
+        "links": {
+          "self": "/v1/factbase/1/relationships/inferences_fb",
+          "related": "/v1/factbase/1/inferences_fb"
+        }
+      }
+    },
+    "links": {
+      "self": "/v1/factbase/1"
+    }
+  },
+  "links": {
+    "self": "/v1/factbase/1"
+  },
+  "jsonapi": {
+    "version": "1.0"
+  }
+}
+```
+
+
+### Knowledgebase
+
+The knowledgebase contains models (queries) that can be executed agains a factbase.
+
+
+```json
+{
+  "data": {
+    "type": "knowledgebase",
+    "attributes": {
+      "title": "04 - Cloud-Free Composite",
+      "description": "This is a demo model.",
+      "owner": "user.name",
+      "date": "2020-06-17",
+      "favourite": true,
+      "blockdefs": "<snipped for brevity>" // contains the model as XML. Snipped here for brevity.
+    },
+    "relationships": {
+      "inferences_kb": {
+        "links": {
+          "self": "/v1/knowledgebase/218/relationships/inferences_kb",
+          "related": "/v1/knowledgebase/218/inferences_kb"
+        }
+      }
+    },
+    "id": 218,
+    "links": {
+      "self": "/v1/knowledgebase/218"
+    }
+  },
+  "links": {
+    "self": "/v1/knowledgebase/218"
+  },
+  "jsonapi": {
+    "version": "1.0"
+  }
+}
+
+```
