@@ -83,6 +83,9 @@ This error occurs when an area-of-interest is uploaded, which is not correctly f
 ### 2308 The submitted area-of-interest contains geometries with invalid coordinate ranges {.unnumbered #ERROR:2308}
 This error occurs when an area-of-interest is uploaded, which is contains invalid coordinate ranges. Area-of-interests that are drawn on the map are already correct. Users should check the uploaded file or web feature service.
 
+### 2309 Failed to obtain project information  {.unnumbered #ERROR:2309}
+This error occurs when the Web application is loaded but the information about (the selected) project(s) can not be obtained. Users should try again a few minutes later; if the error continues to occur, please contact info@sen2cube.at
+
 ### 2370 Unknown error during logging in {.unnumbered #ERROR:2370}
 This error occurs when the login failes due to unknown reasons. Users should try again a few minutes later; if the error continues to occur, please contact info@sen2cube.at
 
