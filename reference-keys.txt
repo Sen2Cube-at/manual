@@ -74,6 +74,14 @@ inferences-and-semantic-queries
 marking-inferences-as-favourite
 cloning-inference-settings
 examples
+additional-clients
+command-line-interface-cli
+download-and-further-information
+basic-usage
+start-session-login
+working-with-inferences
+arcgis-pro-toolbox
+download-and-further-information-1
 error-codes
 general-system-errors
 general-frontend-errors
