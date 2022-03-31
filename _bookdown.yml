@@ -6,6 +6,7 @@ rmd_files:
     - "building_blocks.Rmd"
     - "advanced_usage.Rmd"
     - "examples.Rmd"
+    - "additional_clients.Rmd"
     - "error_codes.Rmd"
     - "api.Rmd"
     - "contact_legal.Rmd"
