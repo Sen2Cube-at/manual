@@ -101,6 +101,9 @@ This error occurs when the user has not accepted the usage conditions. Users nee
 ### 2374 Not allowed {.unnumbered #ERROR:2374}
 This error occurs when a user tries to perform an action or change a setting for which the user's current account has no privileges. Users should contact info@sen2cube.at to get more information or request changes of settings and account status.
 
+### 2381 Project is archived {.unnumbered #ERROR:2381}
+This error occurs when a user tries to edit an archived project. Once a project is archived, it is not possible to change it anymore. Users should un-archive the project to enable editing again.
+
 ## Semantic querying and model editing
 
 ### 2401 Unknown error {.unnumbered #ERROR:2401}
