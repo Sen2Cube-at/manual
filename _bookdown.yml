@@ -7,6 +7,6 @@ rmd_files:
     - "additional_clients.Rmd"
     - "error_codes.Rmd"
     - "api.Rmd"
-    - "contact_legal.Rmd"
+    - "legal.Rmd"
 delete_merged_file: true
 output_dir: "docs"

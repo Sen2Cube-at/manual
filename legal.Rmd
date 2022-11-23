@@ -1,17 +1,3 @@
-# Contact {#contact}
-
-**Responsibility for Website content and editing**
-
-Dirk Tiede
-University of Salzburg
-Department of Geoinformatics – Z_GIS
-Schillerstrasse 30
-5020 Salzburg, Austria
-Tel: +43 (0) 662 / 8044-7565
-dirk.tiede@sbg.ac.at
-
-**Purpose of business:** Research project developed with support by the Austrian Research Promotion Agency (FFG) under the Austrian Space Application Programme (ASAP 14) within the project Sen2Cube.at (project no.: 866016).
-
 # Legal Info {#legal}
 
 ## Proprietary Rights Acknowledgment
