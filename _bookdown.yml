@@ -1,6 +1,6 @@
 rmd_files:
     - "index.Rmd"
-    - "semantic_enrichment.Rmd"
+    - "semantic_eo_data_cube.Rmd"
     - "getting_started.Rmd"
     - "model_structure.Rmd"
     - "advanced_usage.Rmd"
