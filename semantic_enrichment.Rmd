@@ -1,5 +1,12 @@
-# Semantic Enrichment {#enrichment}
+# What is a semantic Earth observation data cube? 
 
+A semantic EO data cube or a semantics-enabled EO data cube is a data cube, where for each observation at least one nominal (i.e., categorical) interpretation is available and can be queried in the same instance. Every multispectral observation is *semantically enriched* in a first step. This is depicted under number (1) in the following overview picture.
+
+<center>
+![Semantic EO data cube overview](img/semantic-eo-data-cube-overview.png){width=100%}
+</center>
+
+## Semantic enrichment {#enrichment}
 Semantic enrichment in the EO imagery domain refers to interpreted content of EO imagery (i.e., mapping data to symbols that represent stable concepts). In the case of EO imagery represented in a raster (i.e., image), this means mapping each raster cell (i.e., pixel) to an interpretation that represents a stable concept. These concepts are generally non-ordinal, categorical variables. However, subsets of these variables may be ordinal (e.g., vegetation categorised by increasing greenness or intensity). The relative level of semantic enrichment can vary in complexity and the "symbolic" level of the concepts/variables. Concepts represented by a relatively lower level of semantic enrichment could be considered semi-symbolic. These concepts are a first step towards connecting sensory data to stable, symbolic, semantic classes and are required to be enriched further in semantic models. In contrast, examples of a relatively high level of semantic enrichment are existing ontologies such as the land cover classification system (LCCS) developed by the United Nations Food and Agriculture Organisation (UN-FAO), particularly the modular phase. Semantically enriched EO imagery time-series can be used to create semantically-enabled EO data cubes (i.e., semantic EO data cubes).
 
 There are multiple methods and tools that exist for semantically enriching EO imagery. In the context of the Sen2Cube.at system, the [SIAM](#siam) software has been used, but others are possible.
