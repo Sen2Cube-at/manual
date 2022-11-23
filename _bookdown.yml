@@ -3,7 +3,6 @@ rmd_files:
     - "semantic_enrichment.Rmd"
     - "getting_started.Rmd"
     - "model_structure.Rmd"
-    - "building_blocks.Rmd"
     - "advanced_usage.Rmd"
     - "additional_clients.Rmd"
     - "error_codes.Rmd"
