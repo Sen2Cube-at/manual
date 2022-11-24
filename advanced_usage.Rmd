@@ -1,5 +1,60 @@
 # Advanced usage of the Sen2Cube.at system
 
+## Projects
+
+### Introduction
+
+Projects are a feature to organise inferences and results. Inferences can (optionally) be associated to user-defined projects and therefore logically grouped. Example use-cases could be to group inferences, which are
+
+- created within the context of an existing project
+- within a specific region (e.g. a state in Austria)
+- of a specific time (e.g., to have different projects for inferences in the years 2020, 2021, 2022)
+- part of a processing campaign to be merged later offline
+- ...
+
+There are no constraints how to use projects and you are free to use the for any purpose that may be useful.
+
+```{block, type='rmdnote'}
+If inferences are executed while a project is activated, the inference results will be automatically associated to the project. This can be changed later.
+```
+
+If inferences are associated to a project, they can be filtered in the inference list to get a better overview. If a project has default settings (default factbase, semantic model, AOI, ...), the default settings will be configured automatically if the project is activated. For example, you can create a project for urban green monitoring and set a default AOI (e.g. a city) and semantic model and you have to change only the time interval after activating the project.
+
+### Creating a project
+
+It is always visible in the viewer whether a project is activated or not. This can be checked on the top-right corner of the map viewer. The entry *No projects activated* means that inferences will not be added to a project. By clicking on this button or on the home menu and *projects* it is possible to view all projects and edit them or create new ones.
+
+
+![](img/projects_i.png){width=100%}
+
+By clicking on *create new project* or editing an existing one the *project editor* opens.
+
+![](img/projects_ii.png){width=100%}
+
+Give your new project a name by typing it in the input field at the top and, optionally a description. YOu can specify the runtime of the project by setting a start date and, optionally, an end date.
+
+The section *Default settings* allow you to specify optional settings that will be set when the project is activated. For example, the area-of-interest, a semantic model, or the factbase for an inferences will be automatically taken from the project after activation.
+
+On the bottom it is possible to save and close the project editor and to archive projects. An archived project can not be activated anymore but executed inferences remain associated.
+
+### Selecting a project
+
+A project can be selected or activated by clicking on the *use* button in the project list
+
+
+![](img/projects_iii.png){width=100%}
+
+Completed and existing inferences can be assigned and un-assigned to projects in the result view in the panel on the left side. The *Project* tab allows to view the project to which these inference results belong and to change it by selecting a new project from the dropdown list and clicking on *save* or *clear* to remove a project association.
+
+
+![](img/projects_iv.png){width=100%}
+
+### Searching for inferences that belong to a project
+
+The inference list has a standard filter to select inferences that belong to a specific project. Select the inference list by clicking on the main menu and *Inferences*. With the filter icon on the left side of the search bar it is possible to filter for all projects that belong to your account.
+
+![](img/projects_v.png){width=100%}
+
 ## Factbases
 ### Metadata information about factbases
 
@@ -10,7 +65,7 @@ Every factbase is provided with a set of metadata that may be useful for the sem
 ![Every factbase is provided with a set of metadata..](img/factbase-editor.png){width=100%}
 
 ```{block, type='rmdnote'}
-Even if the buttons are visible, most users don't have permission to change the settings and information of the factbases. Trying to change them will result in an error. If you have a request for changings of the settings, please contact info@sen2cube.at
+Even if the buttons are visible, most users don't have permission to change the settings and information of the factbases. Trying to change them will result in an error. If you have a request for changes of the settings, please contact info@sen2cube.at
 ```
 
 ### Switching between factbases
