@@ -57,7 +57,7 @@ Table: (\#tab:siamnames) 33 SIAM color names available in Sen2Cube.at
 |          30 | SHSN        | Shadow Snow  | appearance |
 |          31 | SH          | Shadow areas | appearance |
 |          32 | FLAME       | Flame        | appearance |
-|          33 | UN          | Unknown      | appearance |
+|          33 | UN          | Unknown      | artifacts |
 |         255 | NO DATA     | No data      | 
 
 The following additional information layers are available:
