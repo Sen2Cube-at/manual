@@ -101,9 +101,6 @@ This error occurs when the user has not accepted the usage conditions. Users nee
 ### 2374 Not allowed {.unnumbered #ERROR:2374}
 This error occurs when a user tries to perform an action or change a setting for which the user's current account has no privileges. Users should contact info@sen2cube.at to get more information or request changes of settings and account status.
 
-### 2381 Project is archived {.unnumbered #ERROR:2381}
-This error occurs when a user tries to edit an archived project. Once a project is archived, it is not possible to change it anymore. Users should un-archive the project to enable editing again.
-
 ## Semantic querying and model editing
 
 ### 2401 Unknown error {.unnumbered #ERROR:2401}
@@ -143,9 +140,6 @@ This error occurs when the application tries to fetch a result, but the URL is i
 
 ### 2505 A SCBIR result is not linked to an image {.unnumbered #ERROR:2505}
 This error occurs when the model returns a SCBIR result, but no corresponding images can be found in the (external) image database. Usually, it is not possible to mitigate this error; please report it.
-
-### 2506 The legend of at least one map can not be created because no data are retrieved. {.unnumbered #ERROR:2506}
-This error may occur if the result is not available or because of internal errors. The system will try to render the map and provide a download link. If this also does not work, users should check their semantic models and the semantic query that caused this error. If everything seems correct, please report this error.
 
 ## Errors associated with the preparation phase of semantic queries
 

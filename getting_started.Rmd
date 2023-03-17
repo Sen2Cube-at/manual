@@ -9,7 +9,7 @@ Inferring information from data using an expert system (information processing s
 
 A semantic query in the Sen2Cube.at system has three main components:
 
-- **Model**: This is the part of the knowledgebase that is used to infer new information. It is a set of rules in which the semantic concepts are defined, and the desired results are formulated.
+- **Semantic model**: This is the part of the knowledgebase that is used to infer new information. It is a set of rules in which the semantic concepts are defined, and the desired results are formulated.
 - **area-of-interest**: This defines the spatial extent (subset) of the factbase that will be input to the inference engine.
 - **Time Interval**: This defines the temporal extent (subset) of the factbase that will be input to the inference engine.
 
@@ -19,7 +19,7 @@ A semantic query is the execution of a model from the knowledgebase against a se
 
 Additionally, it is possible to execute a model in **preview** mode. This is a setting of the **inference engine** options and available for all types of models. A query in preview mode generally will be executed faster as the spatial resolution is reduced by a factor of 10. See the section below for more information.
 
-## Workflow
+## Using a semantic model to create inferences
 
 In the Sen2Cube.at Web-application, each component corresponds to one pane on the left side of the main page.
 
@@ -27,11 +27,13 @@ In the Sen2Cube.at Web-application, each component corresponds to one pane on th
 ![](img/main.png){width=100%}
 </center>
 
-### Selecting the model
+### Selecting the semantic model
 
-Clicking `Browse all models` shows the models, which are already within the knowledgebase and can be used directly. At the begin of the list, you can click the `+` icon to create a new model. For doing this, it may be useful, read the documentation on model construction (\@ref(model)).
+It is possible to select and directly apply an existing semantic model without further editing or changes. Clicking `Browse all models` shows the semantic models, which are already within the knowledgebase and can be used directly.
 
-Deleting a model is only possible if it was not used in an inference, i.e.., a semantic query. As information processing system, Sen2Cube.at does not allow to maintain inferences without associated models. Thus, deleting all associated inferences is required prior to deleting a model.
+If you want to create a new semantic model, click the `+` icon at the beginning of the list. A documentation how to develop a new semantic model or edit an existing one is available in Section *Semantic model development* (\@ref(semantic_model_development)).
+
+Deleting a model is only possible if it was not used in an inference, i.e., a semantic query. As information processing system, Sen2Cube.at does not allow to maintain inferences without associated models. Thus, deleting all associated inferences is required prior to deleting a model.
 
 ### Selecting the area-of-interest
 
@@ -125,6 +127,31 @@ The entire workflow of using a prepared model to conduct a semantic query can be
 ![An example of a Sen2Cube.at inference workflow including exporting the results as OGC Web Map Service](img/wms_example.gif){width=100%}
 
 </center>
+
+## Examples {#examples}
+
+A wide-variety of example models that demonstrate the functionality of the Sen2Cube.at's graphical semantic querying interface are included in the model pane of the [Sen2Cube.at Demo](https://demo.sen2cube.at/app).
+
+**Calculating a cloud-free composite**
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wOLwyJ3AgvA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+**Counting water observations**
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/oiJt61CONqA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+**Semantic content-based image retrieval**
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3baEb54Jkn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+**Per-parcel statistics of greenness over time**
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/zqnC8zf9Ito" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+**Count vegetation observations and export the results using OGC Web Map Service**
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xh5wWSqAvIA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ## Other access options

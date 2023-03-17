@@ -1,0 +1,134 @@
+# Legal Info {#legal}
+
+## Proprietary Rights Acknowledgment
+
+© Copyright 2020 Department of Geoinformatics – Z_GIS, Austria. All rights reserved. The contents of the website are published in the World Wide Web for online access. All texts, images, figures, video, animation and sound data and their arrangements are the exclusive property of Z_GIS, the Sen2Cube.at project partners, and any respective copyright owner. This work is protected under the Austrian copyright law and other international copyright treaties and conventions. The data and the content of the website must not be copied, changed and placed on other websites for commercial use. We acknowledge that some images posted herein are provided by a respective third party and subject to their copyrights. Please [contact us](#contact) if you would like to use or distribute copies or excerpts for non-commercial purposes in electronic or printed forms.
+
+## Trademarks
+
+All labels, logos and trademarks can only be used with the expressed permission of Z_GIS or the respective third party.
+
+## Licences
+
+The intellectual property of all patents, trademarks and copyrights posted on this website are protected. This website does not permit the use of the intellectual property of Z_GIS or third parties.
+
+## Liability
+
+The text provided in the Sen2Cube.at manual Webpage has been reviewed with great care. However, the Sen2Cube.at project partners cannot guarantee the accuracy, completeness or validity of the information provided. Therefore the Sen2Cube.at project partners accept no liability for the contents provided. Links to other websites have been carefully selected. However, the project partners are not responsible for contents on any other websites.
+
+## Information Duty to GPDR Art. 13 and 14
+
+### General
+
+We take the protection of your personal data very seriously. We treat your personal data confidentially and in accordance to the statutory data protection regulations and this data protection declaration. Personal data are data with which you can be personally identified. This data sheet explains which data we collect and how we use them. It also explains how and for what purpose this is done.
+
+
+### Legal basis for processing person-related data
+
+We process personal data only if a legal basis exists:
+
+  - consent from the involved person (Art. 6 Paragraph 1 lit. a) GDPR)
+  - fulfilling a contract (Art.6 Paragraph 1 lit. b) GDPR)
+  - justified interests (Art.6 Paragraph 1 lit. f) GDPR)
+  - fulfilling legal obligations (Art. 6 Paragraph 1 lit. c) GDPR)
+
+
+### Processing of data, data categories and involved groups of persons
+
+All personal data are collected and processed in accordance with the EU Data Privacy Regulation (GDPR) We process the following data from you: Company or government authority name, name and first name of contact-persons and users, address, telephone and fax number, e-mail, bank details, contracts, orders, invoices, delivery notes.
+
+The data belong to the following data categories: Identification data, communication data, financial data, order data, contract data and billing data.
+
+The following groups of persons are affected: customers, contractors, service providers, job applicants, interested parties, employees.
+
+
+### Use of your personal data (purpose)
+
+These data are collected:
+
+  - to identify you as a user given a communicated user agreement
+  - if you send us an application
+
+We do not pass your data on to third parties unless it is necessary for the fulfilment of inquiries and orders (e.g. shipping, forwarding, etc.).
+
+
+### Your rights as an involved person
+
+As the involved person, you have at all times the right:
+
+  - to receive at no charge information about your person-related data (Art. 15 GDPR)
+  - to correct it (Art. 16 GDPR)
+  - to have these data deleted in compliance with any existing legal storage obligations (Art. 17 GDPR)
+  - to restrict (right to limitation of processing, Art. 18 GDPR)
+  - to data transferability (Art. 20 GDPR)
+  - to object (Art. 21 GDPR)
+  - to make a complaint to the competent supervisory authority (Art. 77 GDPR)
+
+
+### Revoking consent
+
+You may revoke any consent given at any time with effect for the future. If you wish to exercise your right to revoke, simply send an [e-mail](#contact).
+
+
+### Deletion of person-related data
+
+The personal data collected by us are deleted after completion of the purpose while considering the legal storage obligations.
+
+
+### Technical organisational measures
+
+We take technical and organisational measures in order to process your data with a high degree of security. Particular emphasis is placed on the following points:
+
+  - Confidentiality (Art. 32 Paragraph 1 lit. b) GDPR), in particular access control and separation checks
+  - Integrity (Art. 32 Paragraph 1 lit. b) GDPR), in particular passing on, inputting, processing, documentation and order checks
+  - Availability and resilience (Art. 32 Paragraph 1 lit. b) GDPR), especially availability checks and recoverability
+  - Processes for regularly checking, assessing and evaluating (Art. 32 Paragraph 1 lit. d) GDPR; Art. 25 Paragraph 1 GDPR), in particular data protection management, data protectionfriendly pre-settings and organisational control
+
+
+## Additional legal info (in German only)
+
+
+### Offenlegung gemäß § 25 Mediengesetz
+
+Inhaber der Website: Interfakultärer Fachbereich für Geoinformatik – Z_GIS der Universität Salzburg, 5020 Salzburg.
+
+
+### Urheberrechte
+
+© Copyright 2020 Interfakultärer Fachbereich Geoinformatik – Z_GIS. Alle Rechte vorbehalten. Sämtliche Texte, Bilder, Grafiken, Video-, Animations- und Sounddateien sowie ihre Arrangements unterliegen dem Urheberrecht und anderen Gesetzen zum Schutz geistigen Eigentums. Sie, sowie der Inhalt dieser Webseiten, dürfen weder für gewerbliche oder kommerzielle Zwecke noch zur Weitergabe kopiert, verändert und auf anderen Webseiten verwendet werden. Wir weisen darauf hin, dass einige Webseiten Bilder enthalten, die dem Urheberrecht derjenigen unterliegen, die diese Z_GIS zur Verfügung gestellt haben.
+
+
+### Markenrechte
+
+Das Logo der Universität Salzburg sowie das Z_GIS-Logo und -Name sind registrierte Marken der Universität Salzburg bzw. von Z_GIS.
+
+
+### Haftung und Gewährleistung
+
+Alle Informationen auf den Webseiten stellt Z_GIS ohne jegliche Gewährleistung oder Zusicherung jedweder Art, sei sie ausdrücklich oder stillschweigend, zur Verfügung. Ausgeschlossen sind insbesondere alle, auch stillschweigenden Gewährleistungen betreffend etwaige kommerzielle Nutzung der Inhalte oder die Eignung der Webseiten für bestimmte Zwecke. Diese Webseiten wurde mit größtmöglicher Sorgfalt zusammengestellt. Trotzdem kann keine Gewähr für die Fehlerfreiheit und Genauigkeit der enthaltenen Informationen übernommen werden. Jegliche Haftung für Schäden, die direkt oder indirekt aus der Benutzung dieser Website entstehen, wird ausgeschlossen, soweit diese nicht auf Vorsatz oder grober Fahrlässigkeit beruhen oder eine Verletzung von Leib und Leben verursachen.
+
+
+### Aufsichtsbehörde der Universität Salzburg
+
+Bundesministerium für Wissenschaft, Forschung und Wirtschaft
+
+
+### Aufgaben der Paris-Lodron-Universität Salzburg
+
+Gemäß § 3 Universitätsgesetz 2002 erfüllt die Universität Salzburg im Rahmen ihres Wirkungsbereichs folgende Aufgaben:
+
+  - Entwicklung der Wissenschaften (Forschung und Lehre), Entwicklung und Erschließung der Kunst sowie Lehre der Kunst.
+  - Bildung durch Wissenschaft und durch die Entwicklung und Erschließung der Künste.
+  - Wissenschaftliche, künstlerische, künstlerisch-pädagogische und künstlerisch-wissenschaftliche Berufsvorbildung, Qualifizierung für berufliche Tätigkeiten, die eine Anwendung wissenschaftlicher Erkenntnisse und Methoden erfordern, sowie Ausbildung der künstlerischen und wissenschaftlichen Fähigkeiten bis zur höchsten Stufe.
+  - Heranbildung und Förderung des wissenschaftlichen und künstlerischen Nachwuchses.
+  - Weiterbildung, insbesondere der Absolventinnen und Absolventen von Universitäten.
+  - Koordinierung der wissenschaftlichen Forschung (Entwicklung und Erschließung der Künste) und der Lehre innerhalb der Universität.
+  - Unterstützung der nationalen und internationalen Zusammenarbeit im Bereich der wissenschaftlichen Forschung und Lehre sowie der Kunst.
+  - Unterstützung der Nutzung und Umsetzung ihrer Forschungsergebnisse in der Praxis und Unterstützung der gesellschaftlichen Einbindung von Ergebnissen der Entwicklung und Erschließung der Künste.
+  - Pflege der Kontakte zu den Absolventinnen und Absolventen.
+  - Information der Öffentlichkeit über die Erfüllung der Aufgaben der Universitäten.
+
+
+### Umsatzsteuer-Identifikationsnummer (UID) der Universität Salzburg
+
+ATU 57532824

@@ -1,14 +1,12 @@
 rmd_files:
     - "index.Rmd"
-    - "semantic_enrichment.Rmd"
+    - "semantic_eo_data_cube.Rmd"
     - "getting_started.Rmd"
     - "model_structure.Rmd"
-    - "building_blocks.Rmd"
     - "advanced_usage.Rmd"
-    - "examples.Rmd"
     - "additional_clients.Rmd"
     - "error_codes.Rmd"
     - "api.Rmd"
-    - "contact_legal.Rmd"
+    - "legal.Rmd"
 delete_merged_file: true
 output_dir: "docs"
