@@ -169,7 +169,7 @@ This error occurs when an inference is aborted because it took longer than the u
 ### 4204 Inferences are stopped because of global timeout {.unnumbered #ERROR:4204}
 This error occurs when an inference is aborted because it took longer than the global timeout. The global timeout is, in almost all cases, longer than the user timeout. This error only occurs when the user timeout did not work.
 
-## Errors associated with the status of a factbase 
+## Errors associated with the status of a factbase or factbase information
 
 ### 4301 Unknown factbase status {.unnumbered #ERROR:4301}
 This error is thrown when the factbase is in a status that is not known. It is very unlikely that this error occurs; please report it.
@@ -179,3 +179,6 @@ This error is thrown when the factbase is in maintenance status. While this is n
 
 ### 4303 Factbase is in disabled status {.unnumbered #ERROR:4303}
 This error is thrown when the factbase is in disabled status. No inferences will be processed. Users should contact the owner of the factbase directly.
+
+### 4304 Factbase information can not be retrieved {.unnumbered #ERROR:4304}
+This error is thrown when no information about the factbase can be retrieved. If this does not resolve after some time, please report this error.
