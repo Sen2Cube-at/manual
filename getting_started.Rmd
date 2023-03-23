@@ -129,6 +129,6 @@ The entire workflow of using a prepared model to conduct a semantic query can be
 
 ## Other access options
 
-If you have experience with other Earth observation data cubes you might be familiar with Jupyter Notebooks. Of course they are available in Sen2Cube.at as well: [https://demo.sen2cube.at/notebook/sen2cube](https://demo.sen2cube.at/notebook/sen2cube).
+If you have experience with other Earth observation data cubes you might be familiar with Jupyter Notebooks. Of course they are available in Sen2Cube.at as well: [https://notebook.sen2cube.at/sen2cube](https://notebook.sen2cube.at/sen2cube).
 
 ... but in the semantic querying language you don't have to do programming at all!
